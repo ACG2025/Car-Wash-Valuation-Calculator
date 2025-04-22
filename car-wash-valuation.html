@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's Your Wash Worth?</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #ffffff;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      color: #1a1a1a;
+    }
+    h1 {
+      color: #003a70;
+      font-size: 28px;
+      margin-top: 10px;
+    }
+    h2 {
+      color: #a9831e;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .logo img {
+      max-width: 220px;
+    }
+    .form-section {
+      background-color: #f5f7fa;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-top: 25px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccd1d9;
+      font-size: 15px;
+    }
+    button {
+      background-color: #a9831e;
+      color: white;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #8a6d18;
+    }
+    .results {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: #e6f0f7;
+      border-left: 6px solid #003a70;
+      border-radius: 8px;
+      display: none;
+    }
+    .results h3 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="ACG-Logo-Main.jpeg" alt="Amplify Capital Group Logo">
+  </div>
+  <h1>What's Your Wash Worth?</h1>
+  <p>Answer 5 quick questions and get a rough valuation estimate based on real buyer data.</p>
+
+  <div class="form-section">
+    <div class="form-group">
+      <label for="carCount">Annual Car Count</label>
+      <select id="carCount">
+        <option value="0">Under 140000</option>
+        <option value="1">140000 - 225000</option>
+        <option value="2">Over 225000</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="members">Unlimited Member Count</label>
+      <select id="members">
+        <option value="0">Under 3000</option>
+        <option value="1">3000 - 6500</option>
+        <option value="2">Over 6500</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="ticket">Average Retail Ticket</label>
+      <select id="ticket">
+        <option value="0">Under $12</option>
+        <option value="1">$12 - $18</option>
+        <option value="2">Over $18</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="auv">Annual Unit Volume (AUV)</label>
+      <select id="auv">
+        <option value="0">Under $1400000</option>
+        <option value="1">$1400000 - $2200000</option>
+        <option value="2">Over $2200000</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="churn">Membership Churn Rate</label>
+      <select id="churn">
+        <option value="2">Under 6.5%</option>
+        <option value="1">6.5% - 9%</option>
+        <option value="0">Over 9%</option>
+      </select>
+    </div>
+    <button onclick="calculateValuation()">Calculate My Valuation</button>
+  </div>
+
+  <div class="results" id="results">
+    <h2>Your Estimated Valuation Range:</h2>
+    <p id="valuation"></p>
+    <h3>Your Performance Tier:</h3>
+    <p id="performance"></p>
+  </div>
+
+  <script>
+    function calculateValuation() {
+      let score = 0;
+      score += parseInt(document.getElementById('carCount').value);
+      score += parseInt(document.getElementById('members').value);
+      score += parseInt(document.getElementById('ticket').value);
+      score += parseInt(document.getElementById('auv').value);
+      score += parseInt(document.getElementById('churn').value);
+
+      let valuation = '';
+      let performance = '';
+
+      if (score <= 3) {
+        valuation = '$4M – $6M';
+        performance = 'Average – There’s room to improve across several key metrics.';
+      } else if (score <= 7) {
+        valuation = '$6.5M – $8.5M';
+        performance = 'Better – You’re on track, but there’s still upside potential.';
+      } else {
+        valuation = '$9M – $11M+';
+        performance = 'Best – You’re outperforming the average wash. Buyers will notice.';
+      }
+
+      document.getElementById('valuation').innerText = valuation;
+      document.getElementById('performance').innerText = performance;
+      document.getElementById('results').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
